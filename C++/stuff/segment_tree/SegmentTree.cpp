@@ -52,7 +52,7 @@ class SegmentTree
 		}
 		SegmentTree(size_t SIZE) {
 			std::vector <int> temporary(SIZE, 0);
-			ROOT = Build(0, SIZE - 1, temporary);
+			ROOT = Build(0, int(SIZE - 1), temporary);
 		}
 		SegmentTree(std::vector <int> &arr) {
 			ROOT = Build(0, (int)arr.size() - 1, arr);
