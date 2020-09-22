@@ -3,35 +3,35 @@
 //List for soldier group
 struct IdList
 {
-    std::string destination_;
-    std::string job_;
-    int NumberOfCompany_;
+	std::string destination_;
+	std::string job_;
+	int NumberOfCompany_;
 
-    IdList(const std::string &destination, const std::string &job, const int &NumberOfCompany)
-        : destination_(destination), job_(job), NumberOfCompany_(NumberOfCompany) {}
-    ~IdList() = default;
+	IdList(const std::string &destination, const std::string &job, const int &NumberOfCompany)
+	: destination_(destination), job_(job), NumberOfCompany_(NumberOfCompany) {}
+	~IdList() = default;
 
-    friend std::ostream &operator<<(std::ostream &stream, const IdList &IL)
-    {
-        return stream << "\nIdList\n";
-    }
+	friend std::ostream &operator<<(std::ostream &stream, const IdList &IL)
+	{
+		return stream << "\nIdList\n";
+	}
 };
 
 //List of own properties
 struct OwnProperty
 {
-    std::string name_;
-    std::string grade_;
-    int skill_;
+	std::string name_;
+	std::string grade_;
+	int skill_;
 
-    OwnProperty(const std::string &name, const std::string &grade, const int &skill)
-        : name_(name), grade_(grade), skill_(skill) {}
-    ~OwnProperty() = default;
+	OwnProperty(const std::string &name, const std::string &grade, const int &skill)
+	: name_(name), grade_(grade), skill_(skill) {}
+	~OwnProperty() = default;
 
-    friend std::ostream &operator<<(std::ostream &stream, const OwnProperty &OP)
-    {
-        return stream << "\nOwnProperty\n";
-    }
+	friend std::ostream &operator<<(std::ostream &stream, const OwnProperty &OP)
+	{
+		return stream << "\nOwnProperty\n";
+	}
 };
 
 //Soldier (Flyweigth)
@@ -45,16 +45,16 @@ class Soldier
 	    Soldier(const Soldier &other) : ID_LIST_(new IdList(*other.ID_LIST_)) {}
 	    ~Soldier()
 	    {
-	        delete ID_LIST_;
+		delete ID_LIST_;
 	    }
 
 	    IdList *IL() const
 	    {
-	        return ID_LIST_;
+		return ID_LIST_;
 	    }
 	    void Operation(const OwnProperty &OWN_PROPERTY) const
 	    {
-	        std::cout << "\nOperation\t" << OWN_PROPERTY.name_ << '\n';
+		std::cout << "\nOperation\t" << OWN_PROPERTY.name_ << '\n';
 	    }
 };
 
@@ -94,12 +94,12 @@ class SoldierGroup
 	            std::cout << man.first << "\n";
 	    }
 	    void AddSoldierToArmedForces (
-				const std::string &destination,
-				const std::string &job,
-				const int &NumberOfCompany,
-				const std::string &name,
-				const std::string &
-			) const
+			const std::string &destination,
+			const std::string &job,
+			const int &NumberOfCompany,
+			const std::string &name,
+			const std::string &
+		) const
 		{
 			  std::cout << "\nAdding soldier\n";
 		}
@@ -107,18 +107,18 @@ class SoldierGroup
 
 inline void solve(std::ifstream &cin, std::ofstream &cout) {
 
-	  cout << "testing our patern Flyweigth\n\n";
+	cout << "testing our patern Flyweigth\n\n";
 	
 }
 
 signed main(int argc, char* argv[])
 {
     #ifdef _WIN32
-      std::cerr << "OS: Windows\n\n";
+      	std::cerr << "OS: Windows\n\n";
     #elif __linux__
-      std::cerr << "OS: Linux\n\n";
+      	std::cerr << "OS: Linux\n\n";
     #else
-      std::cerr << "OS: Undefined\n\n";
+      	std::cerr << "OS: Undefined\n\n";
     #endif
 
     std::ifstream input;
