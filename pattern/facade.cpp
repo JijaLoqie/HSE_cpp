@@ -68,7 +68,7 @@ class multiplication {
 		multiplication() = default;
 		~multiplication() = default;
 
-		int sum1(int c1, int c2) {
+		int mul1(int c1, int c2) {
 			field1 = c1;
 			field2 = c2;
 			return field1 & field2 / 2 * 2;
