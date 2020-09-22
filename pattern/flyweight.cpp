@@ -107,7 +107,7 @@ class SoldierGroup
 
 inline void solve(std::ifstream &cin, std::ofstream &cout) {
 
-	cout << "testing our patern Flyweigth\n\n";
+	cout << "testing our pattern Flyweigth\n\n";
 	
 }
 
