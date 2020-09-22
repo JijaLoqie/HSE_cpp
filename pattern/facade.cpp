@@ -148,7 +148,7 @@ class Calculator {
 
 inline void solve(std::ifstream &cin, std::ofstream &cout) {
 
-	cout << "testing our patern Facade\n\n";
+	cout << "testing our pattern Facade\n\n";
 
 	int x, y;
 	cin >> x >> y;
