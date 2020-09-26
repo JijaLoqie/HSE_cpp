@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.16)
+
+project(Segment_Tree VERSION 0.0.1)
+
+set(SOURCE SegmentTree.cpp)
+
+add_executable(segmenttree ${SOURCE})
+
+set_target_properties(
+	segmenttree PROPERTIES
+	CXX_STANDARD 17
+	CXX_STANDARD_REQUIRED ON
+)
