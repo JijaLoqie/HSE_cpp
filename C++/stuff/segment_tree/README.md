@@ -1,4 +1,4 @@
-# Segment Tree realiztion
+# Segment Tree realization
 
 ### Table of contents
 * [General info](#general-info)
