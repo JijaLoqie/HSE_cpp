@@ -4,6 +4,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Build](#build)
 
 # General info
 This code illustrates:
@@ -13,8 +14,9 @@ This code illustrates:
 - If we need it we can add update-fuction with the same realization
 
 # Technologies
-- C++ standart 17
+- C++ standard 17
 - cmake
+- make
 
 # Setup
 ```sh
@@ -24,5 +26,12 @@ $ sudo apt install make
 $ sudo apt install cmake
 ```
 
-> For running this code you have to create CMakeLists.txt file.
-> Then build and run binary file.
+# Build
+```sh
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+> For running this code you just have to write ./segmenttree
