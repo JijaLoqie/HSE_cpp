@@ -28,10 +28,10 @@ $ sudo apt install cmake
 
 # Build
 ```sh
-mkdir build
-cd build
-cmake ..
-cmake --build .
+$ mkdir build
+$ cd build
+$ cmake ..
+$ cmake --build .
 ```
 
 > For running this code you just have to write ./segmenttree
