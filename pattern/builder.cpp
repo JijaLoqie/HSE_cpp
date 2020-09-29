@@ -4,16 +4,26 @@
 #include <fstream>
 #include <functional>
 
+//константы цветов
+enum Colors {
+	BLUE,
+	BLACK,
+	WHITE,
+	GREEN,
+	YELLOW
+};
+
 //структура вагона
 struct Van
-{
+{	
 	std::string _wind_form;
-	std::string _color;
+	int _color;
 	int _length;
 	int _height;
 	int _width;
 	int _weight;
 	int _kol_seats;
+	std::vector <int> _seats;
 	Van() = default;
 	~Van() = default;
 };
@@ -31,12 +41,13 @@ class Builder
 		virtual ~Builder() = default;
 		virtual void reset(int num) { Builder::show_message(); }
 		virtual void set_wind_form(std::string value) { Builder::show_message(); }
-		virtual void set_color(std::string value) { Builder::show_message(); }
+		virtual void set_color(int value) { Builder::show_message(); }
 		virtual void set_length(int value) { Builder::show_message(); }
 		virtual void set_height(int value) { Builder::show_message(); }
 		virtual void set_width(int value) { Builder::show_message(); }
 		virtual void set_weight(int value) { Builder::show_message(); }
 		virtual void set_kol_seats(int value) { Builder::show_message(); }
+		virtual void set_seats_color(int value) { Builder::show_message(); }
 		virtual Van getResult() {}
 };
 
@@ -56,7 +67,7 @@ class BlueVanBuilder : public Builder
 		virtual void set_wind_form(std::string value) {
 			this->object._wind_form = value;
 		}
-		virtual void set_color(std::string value) {
+		virtual void set_color(int value) {
 			this->object._color = value;
 		}
 		virtual void set_length(int value) {
@@ -74,6 +85,9 @@ class BlueVanBuilder : public Builder
 		virtual void set_kol_seats(int value) {
 			this->object._kol_seats = value;
 		}
+		virtual void set_seats_color(int value) {
+			this->object._seats.resize(this->object._kol_seats, value);
+		}
 		Van getResult() override {
 			return this->object;
 		}
@@ -83,6 +97,7 @@ class BlueVanBuilder : public Builder
 class Train
 {
 	private:
+		int _x, _y, _z;
 		std::vector <Van> _vans;
 		std::string _number;
 	public:
@@ -96,16 +111,23 @@ class Train
 				Builder* maker = new BlueVanBuilder();
 				maker->reset(i + 1);
 				maker->set_wind_form("circle");
-				maker->set_color("blue");
+				maker->set_color(Colors::BLUE);
 				maker->set_length(1);
 				maker->set_height(2);
 				maker->set_width(3);
 				maker->set_weight(4);
 				maker->set_kol_seats(35);
+				maker->set_seats_color(Colors::WHITE);
 				_vans.push_back(maker->getResult());
 			}
 			std::cout << "Train created" << std::endl;
 			std::cout << "Train number : " << number << std::endl;
+		}
+		//функция инициализации координат поезда
+		void init_coordinates(int x, int y, int z) {
+			this->_x = x;
+			this->_y = y;
+			this->_z = z;
 		}
 };
 
@@ -117,6 +139,7 @@ inline void solve(std::ifstream &cin, std::ofstream &cout)
 
 	Train blue_train;
 	blue_train.make_default_train("cr7", 5);
+	blue_train.init_coordinates(34, 56, 78);
 	
 }
 
