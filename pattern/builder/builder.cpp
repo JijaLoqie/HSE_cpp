@@ -133,6 +133,7 @@ class Train
 			stream << "number : " << obj._number << std::endl;
 			stream << "position : " << obj._x << ' ' << obj._y << ' ' << obj._z << std::endl;
 			stream << "len : " << (int)obj._vans.size() << std::endl << std::endl;
+			return stream;
 		}
 };
 
