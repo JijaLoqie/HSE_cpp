@@ -83,7 +83,6 @@ class BlueVanBuilder : public Builder
 class Train
 {
 	private:
-		int len;
 		std::vector <Van> _vans;
 		std::string _number;
 	public:
@@ -92,9 +91,9 @@ class Train
 		//функция создания поезда
 		void make_default_train(std::string number, int len = 1) {
 			this->_number = number;
-			for (int i = 0; i < len; ++i) {
+			for (size_t i = 0; i < len; i++) {
 				//построение голубого вагона
-				Builder *maker = new BlueVanBuilder();
+				Builder* maker = new BlueVanBuilder();
 				maker->reset(i + 1);
 				maker->set_wind_form("circle");
 				maker->set_color("blue");
