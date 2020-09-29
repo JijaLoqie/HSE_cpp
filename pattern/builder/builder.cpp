@@ -129,6 +129,11 @@ class Train
 			this->_y = y;
 			this->_z = z;
 		}
+		friend std::ostream& operator <<(std::ostream& stream, const Train& obj) {
+			stream << "number : " << obj._number << std::endl;
+			stream << "position : " << obj._x << ' ' << obj._y << ' ' << obj._z << std::endl;
+			stream << "len : " << (int)obj._vans.size() << std::endl << std::endl;
+		}
 };
 
 //демонстрация создания поезда
@@ -140,6 +145,7 @@ inline void solve(std::ifstream &cin, std::ofstream &cout)
 	Train blue_train;
 	blue_train.make_default_train("cr7", 5);
 	blue_train.init_coordinates(34, 56, 78);
+	cout << blue_train;
 	
 }
 
