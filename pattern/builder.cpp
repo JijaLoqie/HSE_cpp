@@ -74,7 +74,7 @@ class BlueVanBuilder : public Builder
 		virtual void set_kol_seats(int value) {
 			this->object._kol_seats = value;
 		}
-		Van getResult() {
+		Van getResult() override {
 			return this->object;
 		}
 };
