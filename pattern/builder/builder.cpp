@@ -163,8 +163,8 @@ class Train
 				make_main->set_length(1);
 				make_main->set_height(2);
 				make_main->set_width(3);
-				make_main->set_weight(4);
-				make_main->set_kol_seats(35);
+				make_main->set_weight(10);
+				make_main->set_kol_seats(37);
 				make_main->set_seats_color(Colors::BLACK);
 				_vans.push_back(make_main->getResult());
 			}
