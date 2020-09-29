@@ -25,6 +25,8 @@ $ sudo apt install cmake
 
 # Build
 ```sh
+$ > input.txt
+$ > output.txt
 $ mkdir build
 $ cd build
 $ cmake ..
