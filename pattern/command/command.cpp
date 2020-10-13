@@ -1,175 +1,157 @@
+#include <cstdio>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include <assert.h>
-
-class Component {
-    public:
-        virtual ~Component() {}
-        virtual void Work() = 0;
-        void Set_Parent(Component* _Parent) {
-            this->Parent = _Parent;
-        }
-    protected:
-        std::string name;
-        Component* Parent;
-    private:
-        static void message() { std::cout << "Component\t"; }
+ 
+struct Person
+{
+    std::string name;
+    unsigned short int age;
+ 
+    Person(std::string _name, unsigned short int _age) : name(_name), age(_age) {}
+ 
+    friend std::ostream& operator<<(std::ostream& os, const Person& person);
 };
-
-class Composite : public Component {
-    public:
-        void Add_Worker(Component* _Worker) {
-            this->Workers.emplace_back(_Worker);
-        }
-    protected:
-        std::vector <Component*> Workers;
-};
-
-class Managing_Director : public Composite {
-    private:
-        static void message() { std::cout << "Managing_Director\t"; }
-    public:
-        Managing_Director() = default;
-        ~Managing_Director() = default;
-        void Drink_Coffee() const {
-            Managing_Director::message();
-            std::cout << "Drink_Coffee" << std::endl;
-        }
-        void Work() override {
-            for (const auto element : Workers) {
-                element->Work();
-            }
-            Drink_Coffee();
-        }
-};
-
-class Senior_VC_President : public Composite {
-    private:
-        static void message() { std::cout << "Senior_VC_President\t"; }
-    public:
-        Senior_VC_President() = default;
-        ~Senior_VC_President() = default;
-        void Prepare_Meeting() const {
-            Senior_VC_President::message();
-            std::cout << "Prepare_Meeting" << std::endl;
-        }
-        void Work() override {
-            for (const auto element : Workers) {
-                element->Work();
-            }
-            Prepare_Meeting();
-        }
-};
-
-class VC_President : public Composite {
-    private:
-        static void message() { std::cout << "VC_President\t"; }
-    public:
-        VC_President() = default;
-        ~VC_President() = default;
-        void Prepare_Pitch_Book() const {
-            VC_President::message();
-            std::cout << "Prepare_Pitch_Book" << std::endl;
-        }
-        void Work() override {
-            for (const auto element : Workers) {
-                element->Work();
-            }
-            Prepare_Pitch_Book();
-        }
-};
-
-class Bank_Assosiate : public Composite {
-    private:
-        static void message() { std::cout << "Bank_Assosiate\t"; }
-    public:
-        Bank_Assosiate() = default;
-        ~Bank_Assosiate() = default;
-        void Gather_Companies_Indicators() const {
-            Bank_Assosiate::message();
-            std::cout << "Gather_Companies_Indicators" << std::endl;
-        }
-        void Put_Company_Indicator() const {
-            Bank_Assosiate::message();
-            std::cout << "Put_Company_Indicator" << std::endl;
-        }
-        void Work() override {
-            for (const auto element : Workers) {
-                element->Work();
-            }
-            Gather_Companies_Indicators();
-            Put_Company_Indicator();
-        }
-};
-
-class Bank_Analyst : public Composite {
-    private:
-        static void message() { std::cout << "Bank_Analyst\t"; }
-    public:
-        Bank_Analyst() = default;
-        ~Bank_Analyst() = default;
-        void Make_Presentation() const {
-            Bank_Analyst::message();
-            std::cout << "Make_Presentation" << std::endl;
-        }
-        void Get_Company_Indicator() const {
-            Bank_Analyst::message();
-            std::cout << "Get_Company_Indicator" << std::endl;
-        }
-        void Work() override {
-            for (const auto element : Workers) {
-                element->Work();
-            }
-            Make_Presentation();
-            Get_Company_Indicator();
-        }
-};
-
-void dfs(Component* man, Component* _parent = nullptr, int depth = 0) {
-    if (depth == 4) return;
-    man->Set_Parent(_parent);
-    for (size_t i = 0; i < 1; i++) {
-        Component* new_child = nullptr;
-        switch (depth) {
-            case 0 : {
-                new_child = new Senior_VC_President();
-                break;
-            }
-            case 1 : {
-                new_child = new VC_President();
-                break;
-            }
-            case 2 : {
-                new_child = new Bank_Assosiate();
-                break;
-            }
-            case 3 : {
-                new_child = new Bank_Analyst();
-                break;
-            }
-            default : {
-                assert(false);
-            }
-        }
-        dynamic_cast<Composite*>(man)->Add_Worker(new_child);
-        dfs(new_child, man, depth + 1);
-    }
+ 
+std::ostream& operator<<(std::ostream& os, const Person& person)
+{
+    os << "Name: " << person.name << " Age: " << person.age;
+    return os;
 }
-
-namespace testing_code {
-    inline void test() {
-        assert(true);
-        Managing_Director* dir_ptr = new Managing_Director();
-        dfs(dir_ptr);
-        dir_ptr->Work();
-        std::cout << "[---OK---]" << std::endl;
+ 
+class Command
+{
+public:
+    virtual void Execute() = 0;
+};
+ 
+class Serialize : public Command {
+ 
+public:
+    Serialize(std::string _path) : path(_path) {}
+ 
+    void Execute() override {
+        std::remove(path.c_str());
+        std::ofstream file(path);
+        file << persons.size() << "\n";
+ 
+        for (auto person : persons)
+        {
+            file << person->name << ":" << person->age << "\n";
+        }
     }
-}
-
-signed main(int argc, char* args[]) {
-
-    testing_code::test();
-
-    return 0;
+ 
+    void SetPersons(std::vector<Person*> vec) {
+        persons = vec;
+    }
+ 
+    std::vector<Person*> GetPersons() {
+        return persons;
+    }
+ 
+ 
+private:
+    std::vector<Person*> persons;
+    std::string path;
+};
+ 
+class Deserialize : public Command {
+ 
+public:
+    Deserialize(std::string _path) : path(_path) {}
+ 
+    void Execute() override {
+        persons.clear();
+        std::ifstream file(path);
+        int am = 0;
+        file >> am;
+ 
+        std::string st, name;
+        int age;
+        for (int i = 0; i < am; i++)
+        {
+            file >> st;
+            size_t splitter = st.find(':');
+            
+            name = st.substr(0, splitter);
+            age = atoi(st.substr(splitter+1).c_str());
+ 
+            persons.push_back(new Person(name, age));
+        }
+    }
+ 
+    std::vector<Person*> GetPersons() {
+        return persons;
+    }
+ 
+private:
+    std::vector<Person*> persons;
+    std::string path;
+};
+ 
+class Log
+{
+private:
+    std::vector<Person*> persons;
+    Command* on_start;
+    Command* on_finish;
+public:
+    void Print()
+    {        
+        persons = dynamic_cast<Serialize*>(on_start)->GetPersons();
+        persons.push_back(new Person("Hacker", 9));
+ 
+        dynamic_cast<Serialize*>(on_start)->SetPersons(persons);
+ 
+        on_start->Execute();
+ 
+        for (auto person : persons)
+        {
+            std::cout << *person << std::endl;
+        }
+ 
+        on_finish->Execute();
+    }
+ 
+    void SetStartCommand(Command* cmd) {
+        on_start = cmd;
+    }
+ 
+    void SetFinishCommand(Command* cmd) {
+        on_finish = cmd;
+    }
+};
+ 
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+ 
+    Log* log = new Log;
+    Serialize* srlz = new Serialize("info.txt");
+    Deserialize* desrlz = new Deserialize("info.txt");
+ 
+    Person* p1 = new Person("Alex", 12);
+    Person* p2 = new Person("Misha", 13);
+ 
+    std::vector<Person*> vec;
+    vec.push_back(p1);
+    vec.push_back(p2);
+ 
+    srlz->SetPersons(vec);
+    
+    log->SetStartCommand(srlz);
+    log->SetFinishCommand(desrlz);
+ 
+    log->Print();
+ 
+    //auto persons = desrlz->GetPersons();
+    //for (auto person : persons) {
+    //    std::cout << *person << std::endl;
+    //}
+ 
+    delete log;
+    delete srlz;
+    delete desrlz;
 }
