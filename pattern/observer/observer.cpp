@@ -36,8 +36,8 @@ struct Courier
 {
 	std::string name;
 	Restaurant* restaurant;
-	Courier(const std::string& _name, Restaurant* _restaraunt) : 
-		name(_name), restaurant(_restaraunt) 
+	Courier(const std::string& _name, Restaurant* _restaurant) : 
+		name(_name), restaurant(_restaurant) 
 	{}
 	void Get_order(Order* order)
 	{
