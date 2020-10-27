@@ -29,4 +29,6 @@ $ ./code
 ```
 
 > For running this code you also can use my bash script
+```sh
 $ sh run.sh
+```
