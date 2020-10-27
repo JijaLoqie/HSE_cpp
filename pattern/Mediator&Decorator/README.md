@@ -1,4 +1,4 @@
-# Builder Pattern
+# Mediator&Decorator Patterns
 
 ### Table of contents
 * [General info](#general-info)
