@@ -9,7 +9,7 @@
 # General info
 This code illustrates:
 - Mediator pattern realization
-- Mediator pattern realization
+- Decorator pattern realization
 
 # Technologies
 - g++
