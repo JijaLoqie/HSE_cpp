@@ -168,10 +168,10 @@ class TimerDecorator : public Decorator {
 			Decorator(_qsorter) {}
 		void Sort(std::vector <int>& vec) {
 			auto start = std::chrono::high_resolution_clock::now();
-        	Decorator::Sort(vec);
-          	auto finish = std::chrono::high_resolution_clock::now();
-        	std::chrono::duration<double> elapsed = finish - start;
-        	std::cout << "time :\t" << elapsed.count() << std::endl;
+        		Decorator::Sort(vec);
+          		auto finish = std::chrono::high_resolution_clock::now();
+        		std::chrono::duration<double> elapsed = finish - start;
+        		std::cout << "time :\t" << elapsed.count() << std::endl;
 		}
 };
 
@@ -223,5 +223,5 @@ int main()
 	test::test_case_Mediator();
 	test::test_case_Decorator();
 
-    return 0;
+    	return 0;
 }
